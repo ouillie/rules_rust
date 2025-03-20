@@ -7,6 +7,7 @@ rust_binary(
     name = "hello",
     srcs = ["src/main.rs"],
     tags = ["manual"],
+    deps = ["@cu//:openssl"],
 )
 
 platform_transition_binary(

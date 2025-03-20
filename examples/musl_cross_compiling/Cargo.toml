@@ -18,6 +18,7 @@ path = "fake.rs"
 # This package has a platform-specific dependency on zbus, which depends on the derivative proc-macro.
 # This is here to ensure feature resolution works even if exec != target.
 keyring = "=2.3.3"
+openssl = "0.10.71"
 
 # If we just to top-level per-platform resolves, we end up with platform-specific features on this crate, such that the `visit` feature is only enabled on Linux.
 # This causes problems when cross-compiling and using this crate from a proc-macro, because we compile the proc-macro against syn with features resolved for the wrong platform.
