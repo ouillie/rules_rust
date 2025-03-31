@@ -23,6 +23,7 @@ use_repo(
     "rrprd__prost-types-0.13.1",
     "rrprd__protoc-gen-prost-0.4.0",
     "rrprd__protoc-gen-tonic-0.4.1",
+    "rrprd__serde-1.0.219",
     "rrprd__tokio-1.39.3",
     "rrprd__tokio-stream-0.1.15",
     "rrprd__tonic-0.12.1",

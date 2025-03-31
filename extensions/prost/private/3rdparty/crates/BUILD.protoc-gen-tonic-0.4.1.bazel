@@ -103,7 +103,7 @@ rust_library(
         "@rrprd__protoc-gen-prost-0.4.0//:protoc_gen_prost",
         "@rrprd__quote-1.0.37//:quote",
         "@rrprd__regex-1.10.6//:regex",
-        "@rrprd__syn-2.0.76//:syn",
+        "@rrprd__syn-2.0.87//:syn",
         "@rrprd__tonic-build-0.12.1//:tonic_build",
     ],
 )
@@ -192,7 +192,7 @@ rust_binary(
         "@rrprd__protoc-gen-prost-0.4.0//:protoc_gen_prost",
         "@rrprd__quote-1.0.37//:quote",
         "@rrprd__regex-1.10.6//:regex",
-        "@rrprd__syn-2.0.76//:syn",
+        "@rrprd__syn-2.0.87//:syn",
         "@rrprd__tonic-build-0.12.1//:tonic_build",
     ],
 )

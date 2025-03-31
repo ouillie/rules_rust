@@ -29,6 +29,9 @@ crates_vendor(
         "protoc-gen-tonic": crate.spec(
             version = "0.4.0",
         ),
+        "serde": crate.spec(
+            version = "1.0.219",
+        ),
         "tokio": crate.spec(
             features = ["full"],
             version = "1.39.3",

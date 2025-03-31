@@ -300,6 +300,7 @@ _NORMAL_DEPENDENCIES = {
             "prost-types": Label("@rrprd//:prost-types-0.13.1"),
             "protoc-gen-prost": Label("@rrprd//:protoc-gen-prost-0.4.0"),
             "protoc-gen-tonic": Label("@rrprd//:protoc-gen-tonic-0.4.1"),
+            "serde": Label("@rrprd//:serde-1.0.219"),
             "tokio": Label("@rrprd//:tokio-1.39.3"),
             "tokio-stream": Label("@rrprd//:tokio-stream-0.1.15"),
             "tonic": Label("@rrprd//:tonic-0.12.1"),
@@ -1323,22 +1324,22 @@ def crate_repositories():
 
     maybe(
         http_archive,
-        name = "rrprd__serde-1.0.209",
-        sha256 = "99fce0ffe7310761ca6bf9faf5115afbc19688edd00171d81b1bb1b116c63e09",
+        name = "rrprd__serde-1.0.219",
+        sha256 = "5f0e2c6ed6606019b4e29e69dbaba95b11854410e5347d525002456dbbb786b6",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/serde/1.0.209/download"],
-        strip_prefix = "serde-1.0.209",
-        build_file = Label("//private/3rdparty/crates:BUILD.serde-1.0.209.bazel"),
+        urls = ["https://static.crates.io/crates/serde/1.0.219/download"],
+        strip_prefix = "serde-1.0.219",
+        build_file = Label("//private/3rdparty/crates:BUILD.serde-1.0.219.bazel"),
     )
 
     maybe(
         http_archive,
-        name = "rrprd__serde_derive-1.0.209",
-        sha256 = "a5831b979fd7b5439637af1752d535ff49f4860c0f341d1baeb6faf0f4242170",
+        name = "rrprd__serde_derive-1.0.219",
+        sha256 = "5b0276cf7f2c73365f7157c8123c21cd9a50fbbd844757af28ca1f5925fc2a00",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/serde_derive/1.0.209/download"],
-        strip_prefix = "serde_derive-1.0.209",
-        build_file = Label("//private/3rdparty/crates:BUILD.serde_derive-1.0.209.bazel"),
+        urls = ["https://static.crates.io/crates/serde_derive/1.0.219/download"],
+        strip_prefix = "serde_derive-1.0.219",
+        build_file = Label("//private/3rdparty/crates:BUILD.serde_derive-1.0.219.bazel"),
     )
 
     maybe(
@@ -1393,12 +1394,12 @@ def crate_repositories():
 
     maybe(
         http_archive,
-        name = "rrprd__syn-2.0.76",
-        sha256 = "578e081a14e0cefc3279b0472138c513f37b41a08d5a3cca9b6e4e8ceb6cd525",
+        name = "rrprd__syn-2.0.87",
+        sha256 = "25aa4ce346d03a6dcd68dd8b4010bcb74e54e62c90c573f394c46eae99aba32d",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/syn/2.0.76/download"],
-        strip_prefix = "syn-2.0.76",
-        build_file = Label("//private/3rdparty/crates:BUILD.syn-2.0.76.bazel"),
+        urls = ["https://static.crates.io/crates/syn/2.0.87/download"],
+        strip_prefix = "syn-2.0.87",
+        build_file = Label("//private/3rdparty/crates:BUILD.syn-2.0.87.bazel"),
     )
 
     maybe(
@@ -1727,6 +1728,7 @@ def crate_repositories():
         struct(repo = "rrprd__prost-types-0.13.1", is_dev_dep = False),
         struct(repo = "rrprd__protoc-gen-prost-0.4.0", is_dev_dep = False),
         struct(repo = "rrprd__protoc-gen-tonic-0.4.1", is_dev_dep = False),
+        struct(repo = "rrprd__serde-1.0.219", is_dev_dep = False),
         struct(repo = "rrprd__tokio-1.39.3", is_dev_dep = False),
         struct(repo = "rrprd__tokio-stream-0.1.15", is_dev_dep = False),
         struct(repo = "rrprd__tonic-0.12.1", is_dev_dep = False),

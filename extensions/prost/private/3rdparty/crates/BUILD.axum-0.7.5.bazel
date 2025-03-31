@@ -110,7 +110,7 @@ rust_library(
         "@rrprd__mime-0.3.17//:mime",
         "@rrprd__percent-encoding-2.3.1//:percent_encoding",
         "@rrprd__pin-project-lite-0.2.14//:pin_project_lite",
-        "@rrprd__serde-1.0.209//:serde",
+        "@rrprd__serde-1.0.219//:serde",
         "@rrprd__sync_wrapper-1.0.1//:sync_wrapper",
         "@rrprd__tower-0.4.13//:tower",
         "@rrprd__tower-layer-0.3.3//:tower_layer",
@@ -155,6 +155,9 @@ cargo_build_script(
     pkg_name = "axum",
     proc_macro_deps = [
         "@rrprd__rustversion-1.0.17//:rustversion",
+    ],
+    rustc_env_files = [
+        ":cargo_toml_env_vars",
     ],
     rustc_flags = [
         "--cap-lints=allow",

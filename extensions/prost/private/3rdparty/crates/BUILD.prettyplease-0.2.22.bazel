@@ -96,7 +96,7 @@ rust_library(
     deps = [
         "@rrprd__prettyplease-0.2.22//:build_script_build",
         "@rrprd__proc-macro2-1.0.86//:proc_macro2",
-        "@rrprd__syn-2.0.76//:syn",
+        "@rrprd__syn-2.0.87//:syn",
     ],
 )
 
@@ -136,6 +136,9 @@ cargo_build_script(
     edition = "2021",
     links = "prettyplease02",
     pkg_name = "prettyplease",
+    rustc_env_files = [
+        ":cargo_toml_env_vars",
+    ],
     rustc_flags = [
         "--cap-lints=allow",
     ],

@@ -100,6 +100,6 @@ rust_library(
         "@rrprd__proc-macro2-1.0.86//:proc_macro2",
         "@rrprd__prost-build-0.13.1//:prost_build",
         "@rrprd__quote-1.0.37//:quote",
-        "@rrprd__syn-2.0.76//:syn",
+        "@rrprd__syn-2.0.87//:syn",
     ],
 )

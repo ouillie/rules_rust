@@ -6,11 +6,7 @@
 #     bazel run @@//private/3rdparty:crates_vendor
 ###############################################################################
 
-load(
-    "@rules_rust//cargo:defs.bzl",
-    "cargo_build_script",
-    "cargo_toml_env_vars",
-)
+load("@rules_rust//cargo:defs.bzl", "cargo_toml_env_vars")
 load("@rules_rust//rust:defs.bzl", "rust_library")
 
 package(default_visibility = ["//visibility:public"])
@@ -21,7 +17,7 @@ cargo_toml_env_vars(
 )
 
 rust_library(
-    name = "serde",
+    name = "syn",
     srcs = glob(
         include = ["**/*.rs"],
         allow_empty = True,
@@ -39,11 +35,74 @@ rust_library(
         ],
     ),
     crate_features = [
+        "clone-impls",
         "default",
-        "std",
-    ],
+        "derive",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+    ] + select({
+        "@rules_rust//rust/platform:aarch64-apple-darwin": [
+            "extra-traits",  # aarch64-apple-darwin
+            "visit-mut",  # aarch64-apple-darwin
+        ],
+        "@rules_rust//rust/platform:aarch64-pc-windows-msvc": [
+            "extra-traits",  # aarch64-pc-windows-msvc
+            "visit-mut",  # aarch64-pc-windows-msvc
+        ],
+        "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [
+            "extra-traits",  # aarch64-unknown-linux-gnu
+            "visit-mut",  # aarch64-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [
+            "extra-traits",  # aarch64-unknown-linux-gnu, aarch64-unknown-nixos-gnu
+            "visit-mut",  # aarch64-unknown-linux-gnu, aarch64-unknown-nixos-gnu
+        ],
+        "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [
+            "extra-traits",  # arm-unknown-linux-gnueabi
+            "visit-mut",  # arm-unknown-linux-gnueabi
+        ],
+        "@rules_rust//rust/platform:i686-pc-windows-msvc": [
+            "extra-traits",  # i686-pc-windows-msvc
+            "visit-mut",  # i686-pc-windows-msvc
+        ],
+        "@rules_rust//rust/platform:i686-unknown-linux-gnu": [
+            "extra-traits",  # i686-unknown-linux-gnu
+            "visit-mut",  # i686-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:powerpc-unknown-linux-gnu": [
+            "extra-traits",  # powerpc-unknown-linux-gnu
+            "visit-mut",  # powerpc-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:s390x-unknown-linux-gnu": [
+            "extra-traits",  # s390x-unknown-linux-gnu
+            "visit-mut",  # s390x-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:x86_64-apple-darwin": [
+            "extra-traits",  # x86_64-apple-darwin
+            "visit-mut",  # x86_64-apple-darwin
+        ],
+        "@rules_rust//rust/platform:x86_64-pc-windows-msvc": [
+            "extra-traits",  # x86_64-pc-windows-msvc
+            "visit-mut",  # x86_64-pc-windows-msvc
+        ],
+        "@rules_rust//rust/platform:x86_64-unknown-freebsd": [
+            "extra-traits",  # x86_64-unknown-freebsd
+            "visit-mut",  # x86_64-unknown-freebsd
+        ],
+        "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [
+            "extra-traits",  # x86_64-unknown-linux-gnu
+            "visit-mut",  # x86_64-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:x86_64-unknown-nixos-gnu": [
+            "extra-traits",  # x86_64-unknown-linux-gnu, x86_64-unknown-nixos-gnu
+            "visit-mut",  # x86_64-unknown-linux-gnu, x86_64-unknown-nixos-gnu
+        ],
+        "//conditions:default": [],
+    }),
     crate_root = "src/lib.rs",
-    edition = "2018",
+    edition = "2021",
     rustc_env_files = [
         ":cargo_toml_env_vars",
     ],
@@ -52,7 +111,7 @@ rust_library(
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=serde",
+        "crate-name=syn",
         "manual",
         "noclippy",
         "norustfmt",
@@ -96,67 +155,10 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-uefi": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "1.0.209",
+    version = "2.0.87",
     deps = [
-        "@rrprd__serde-1.0.209//:build_script_build",
+        "@rrprd__proc-macro2-1.0.86//:proc_macro2",
+        "@rrprd__quote-1.0.37//:quote",
+        "@rrprd__unicode-ident-1.0.12//:unicode_ident",
     ],
-)
-
-cargo_build_script(
-    name = "_bs",
-    srcs = glob(
-        include = ["**/*.rs"],
-        allow_empty = True,
-    ),
-    compile_data = glob(
-        include = ["**"],
-        allow_empty = True,
-        exclude = [
-            "**/* *",
-            "**/*.rs",
-            ".tmp_git_root/**/*",
-            "BUILD",
-            "BUILD.bazel",
-            "WORKSPACE",
-            "WORKSPACE.bazel",
-        ],
-    ),
-    crate_features = [
-        "default",
-        "std",
-    ],
-    crate_name = "build_script_build",
-    crate_root = "build.rs",
-    data = glob(
-        include = ["**"],
-        allow_empty = True,
-        exclude = [
-            "**/* *",
-            ".tmp_git_root/**/*",
-            "BUILD",
-            "BUILD.bazel",
-            "WORKSPACE",
-            "WORKSPACE.bazel",
-        ],
-    ),
-    edition = "2018",
-    pkg_name = "serde",
-    rustc_flags = [
-        "--cap-lints=allow",
-    ],
-    tags = [
-        "cargo-bazel",
-        "crate-name=serde",
-        "manual",
-        "noclippy",
-        "norustfmt",
-    ],
-    version = "1.0.209",
-    visibility = ["//visibility:private"],
-)
-
-alias(
-    name = "build_script_build",
-    actual = ":_bs",
-    tags = ["manual"],
 )
