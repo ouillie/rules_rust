@@ -32,6 +32,9 @@ crates_vendor(
         "serde": crate.spec(
             version = "1.0.219",
         ),
+        "serde_json": crate.spec(
+            version = "1.0.140",
+        ),
         "tokio": crate.spec(
             features = ["full"],
             version = "1.39.3",

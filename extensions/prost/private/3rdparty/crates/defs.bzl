@@ -301,6 +301,7 @@ _NORMAL_DEPENDENCIES = {
             "protoc-gen-prost": Label("@rrprd//:protoc-gen-prost-0.4.0"),
             "protoc-gen-tonic": Label("@rrprd//:protoc-gen-tonic-0.4.1"),
             "serde": Label("@rrprd//:serde-1.0.219"),
+            "serde_json": Label("@rrprd//:serde_json-1.0.140"),
             "tokio": Label("@rrprd//:tokio-1.39.3"),
             "tokio-stream": Label("@rrprd//:tokio-stream-0.1.15"),
             "tonic": Label("@rrprd//:tonic-0.12.1"),
@@ -1314,6 +1315,16 @@ def crate_repositories():
 
     maybe(
         http_archive,
+        name = "rrprd__ryu-1.0.20",
+        sha256 = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f",
+        type = "tar.gz",
+        urls = ["https://static.crates.io/crates/ryu/1.0.20/download"],
+        strip_prefix = "ryu-1.0.20",
+        build_file = Label("//private/3rdparty/crates:BUILD.ryu-1.0.20.bazel"),
+    )
+
+    maybe(
+        http_archive,
         name = "rrprd__scopeguard-1.2.0",
         sha256 = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49",
         type = "tar.gz",
@@ -1340,6 +1351,16 @@ def crate_repositories():
         urls = ["https://static.crates.io/crates/serde_derive/1.0.219/download"],
         strip_prefix = "serde_derive-1.0.219",
         build_file = Label("//private/3rdparty/crates:BUILD.serde_derive-1.0.219.bazel"),
+    )
+
+    maybe(
+        http_archive,
+        name = "rrprd__serde_json-1.0.140",
+        sha256 = "20068b6e96dc6c9bd23e01df8827e6c7e1f2fddd43c21810382803c136b99373",
+        type = "tar.gz",
+        urls = ["https://static.crates.io/crates/serde_json/1.0.140/download"],
+        strip_prefix = "serde_json-1.0.140",
+        build_file = Label("//private/3rdparty/crates:BUILD.serde_json-1.0.140.bazel"),
     )
 
     maybe(
@@ -1729,6 +1750,7 @@ def crate_repositories():
         struct(repo = "rrprd__protoc-gen-prost-0.4.0", is_dev_dep = False),
         struct(repo = "rrprd__protoc-gen-tonic-0.4.1", is_dev_dep = False),
         struct(repo = "rrprd__serde-1.0.219", is_dev_dep = False),
+        struct(repo = "rrprd__serde_json-1.0.140", is_dev_dep = False),
         struct(repo = "rrprd__tokio-1.39.3", is_dev_dep = False),
         struct(repo = "rrprd__tokio-stream-0.1.15", is_dev_dep = False),
         struct(repo = "rrprd__tonic-0.12.1", is_dev_dep = False),
