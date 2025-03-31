@@ -18,7 +18,7 @@ load("@rules_rust//rust/private:rust_analyzer.bzl", "write_rust_analyzer_spec_fi
 load("@rules_rust//rust/private:rustc.bzl", "rustc_compile_action")
 
 # buildifier: disable=bzl-visibility
-load("@rules_rust//rust/private:utils.bzl", "can_build_metadata")
+load("@rules_rust//rust/private:utils.bzl", "can_build_metadata", "transform_deps")
 load("//:providers.bzl", "ProstProtoInfo")
 load(":prost_transform.bzl", "ProstTransformInfo")
 
@@ -377,6 +377,7 @@ rust_prost_aspect = aspect(
 
 def _rust_prost_library_impl(ctx):
     proto_dep = ctx.attr.proto
+    rust_deps = ctx.attr.deps
     rust_proto_info = proto_dep[ProstProtoInfo]
     dep_variant_info = rust_proto_info.dep_variant_info
     rust_generated_srcs = proto_dep[OutputGroupInfo].rust_generated_srcs
@@ -392,7 +393,9 @@ def _rust_prost_library_impl(ctx):
         DefaultInfo(files = depset([dep_variant_info.crate_info.output])),
         rust_common.crate_group_info(
             dep_variant_infos = depset(
-                [dep_variant_info],
+                # This does not work as I'd hoped.
+                # TODO: Figure out the real solution.
+                [dep_variant_info] + transform_deps(rust_deps),
                 transitive = transitive,
             ),
         ),
@@ -412,6 +415,9 @@ rust_prost_library = rule(
             providers = [ProtoInfo],
             aspects = [rust_prost_aspect],
             mandatory = True,
+        ),
+        "deps": attr.label_list(
+            doc = "Crates that the generated library depends on.",
         ),
         "_collect_cc_coverage": attr.label(
             default = Label("@rules_rust//util:collect_coverage"),

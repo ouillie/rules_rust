@@ -1,0 +1,48 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_rust//rust:defs.bzl", "rust_test")
+load("//:defs.bzl", "rust_prost_library", "rust_prost_toolchain")
+load("//private/tests/transitive_dependencies:transition.bzl", "extra_toolchain_wrapper")
+
+proto_library(
+    name = "foo_proto",
+    srcs = ["foo.proto"],
+)
+
+rust_prost_library(
+    name = "foo_rs_proto",
+    proto = ":foo_proto",
+    deps = ["//private/3rdparty/crates:serde"],
+)
+
+extra_toolchain_wrapper(
+    name = "foo_rs_proto_with_serde",
+    dep = ":foo_rs_proto",
+    toolchain = ":prost_toolchain_with_serde",
+)
+
+rust_test(
+    name = "serde_prost_test",
+    srcs = ["serde_prost_test.rs"],
+    deps = [":foo_rs_proto_with_serde"],
+)
+
+toolchain(
+    name = "prost_toolchain_with_serde",
+    toolchain = ":prost_toolchain_with_serde_impl",
+    toolchain_type = "//:toolchain_type",
+)
+
+rust_prost_toolchain(
+    name = "prost_toolchain_with_serde_impl",
+    # This is the important delta from the default toolchain.
+    prost_opts = [
+        "type_attribute=.=#[derive(serde::Serialize)]",
+    ],
+    prost_plugin = "//private/3rdparty/crates:protoc-gen-prost__protoc-gen-prost",
+    prost_plugin_flag = "--plugin=protoc-gen-prost=%s",
+    prost_runtime = "//private:prost_runtime",
+    prost_types = "//private/3rdparty/crates:prost-types",
+    tonic_plugin = "//private/3rdparty/crates:protoc-gen-tonic__protoc-gen-tonic",
+    tonic_plugin_flag = "--plugin=protoc-gen-tonic=%s",
+    tonic_runtime = "//private:tonic_runtime",
+)

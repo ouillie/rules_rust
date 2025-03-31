@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package foo.bar;
+
+message A {
+    string name = 1;
+
+    map<string, B> fields = 2;
+}
+
+message B {
+  int32 x = 1;
+  double y = 2;
+}
